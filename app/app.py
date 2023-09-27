@@ -148,14 +148,12 @@ def Detectorobjetos(url):
     print("Analyzing image...\n")
     response = requests.post(predictionUrl, headers=data, json=body)
     result = response.json()
+    
+    
+
     predictions = result["predictions"]
-    datos=[]
-    for item in predictions:
-        if item["probability"] > 0.6:
-            if item["probability"] > 0.6:
-                print(item["tagName"] + " (" + str(item["probability"]) + "%)")
-                print(item["boundingBox"], "\n")
-    return datos      
+    
+    return predictions 
 
 
 def face(url):
@@ -242,12 +240,24 @@ def objetos():
         resultados1= Detectorobjetos(url)
         """ resutados2= objetos(url)
         resultados3=  "objetos(url)" """
-        data={
-            'imagen1': resultados1 ,
-             
-        }
-        return render_template('objetos.html',data=data)
+        
+        return render_template('objetos.html',data=resultados1)
     
+    
+    
+@app.route('/rostros', methods=['POST'])
+def rostros():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        """  file = request.files['file']
+        file2 = request.files['file1']
+        file3 = request.files['file2'] """
+        url="https://trucoslondres.com/wp-content/uploads/2017/04/people-1.jpg"
+        resultados1= face(url)
+        """ resutados2= objetos(url)
+        resultados3=  "objetos(url)" """
+        
+        return render_template('rostros.html',data=resultados1)
     
     
 if __name__ == '__main__':
