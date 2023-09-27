@@ -177,8 +177,9 @@ def face(url):
     result = response.json()
 
     analysis = result
-    for face in analysis:
-        print(f"Face location: {face['faceRectangle']}\n")
+    return analysis
+    """ for face in analysis:
+        print(f"Face location: {face['faceRectangle']}\n") """
 
 def subirImagen(file):
         if file:

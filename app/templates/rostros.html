@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-lg-12 col-xl-3">
                 <div class="logo">
-                    <a href="" title="logo"> Inteligencia Artificial-Azure  </a>
+                    <a href="/" title="logo"> Inteligencia Artificial-Azure  </a>
                  </div>
             </div>
         </div>
@@ -70,11 +70,8 @@ header {
                 <div class='card'>
                 <div class='p-4'><div class='mb-8'> <h2>Detector de Objetos</h2>
                     <h1>Predicciones</h1>
-    {% for item in data %}
-      {% if item["probability"] > 0.6 %}
-        <p>En la imagen se ha encontrado el objeto: <b>{{ item["tagName"] }}</b>  con una probabilidad del  <b>({{ item["probability"] }}%)</b></p>
-        <p>En las coordenadas{{ item["boundingBox"] }}</p>
-      {% endif %}
+    {% for item in data %}  
+        <p>En la imagen se han detectado los siguientes rostros: {{ item["faceRectangle"] }}
     {% endfor %}
                       </div>      
                       

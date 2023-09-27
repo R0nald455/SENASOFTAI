@@ -60,18 +60,8 @@ header {
                 <div class='card'>
                 <div class='p-4'><div class='mb-8'> <h2>Clasificador de Imagenes</h2>
                   <form action="/formulario"  method="post">
-                    
-<!--                     <select name="tipo" id="tipo">
-                      <option value="url"    selected>URL</option>
-                      <option value="file">Subir Archivo</option>
-                    </select>
- -->
                       <input type="text" name="url" id="url"  placeholder="ingrese URL">
                     <button type="submit" name="add">Clasificar</button>
-                </form>
-                <form method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif">
-                    <input type="submit" value="Subir y Procesar">
                 </form>
                       </div>               
                 </div>
@@ -88,7 +78,7 @@ header {
                     </div>
                     <div class='card'>
                         <div class='p-4'><div class='mb-8'> <h2>Reconocimiento Facial</h2>
-                          <form action="/formulario"  method="post">
+                          <form action="/rostros"  method="post">
                             
         <!--                     <select name="tipo" id="tipo">
                               <option value="url"    selected>URL</option>
