@@ -60,7 +60,7 @@ header {
     background-color: rgb(216, 216, 216);
 }
 
-#card input,button{
+#card select,input,button{
     width: 70%;
     margin-top: 15px;
 }
@@ -94,6 +94,11 @@ header {
         <div class="card-body">
           <h5 class="card-title">Clasificador de Imagenes</h5>
           <form action="/formulario" method="post" autocomplete="off">
+            <select name="idiomas" id="idiomas">
+                <option value="1">Japones-Inglés-Ruso</option>
+                <option value="2">Aleman-Chino-Noruego</option>
+                <option value="3">Esloveno-Sueco-Ucraniano</option>
+            </select>
               <input type="text" name="url" id="url" placeholder="Ingrese URL">
               <button type="submit" name="add" class="btn btn-outline-secondary btn-sm">Clasificar</button>
           </form>
@@ -108,9 +113,9 @@ header {
           <div class="card-body">
             <h5 class="card-title">Detector De Objetos</h5>
               <form action="/objetos" method="POST" enctype="multipart/form-data" autocomplete="off">
-                  <input type="text" name="url" id="url1" placeholder="Ingrese url">
-                  <input type="text" name="url" id="url2" placeholder="Ingrese url">
-                  <input type="submit" class="btn btn-outline-secondary btn-sm" value="Encontrar Objetos">
+                  <input type="text" name="url1" id="url1" class="url1" placeholder="Ingrese url">
+                  <button type="submit" name="add"
+                  class="btn btn-outline-secondary btn-sm">Encontrar objetos</button>
               </form>
             </form>
           </div>

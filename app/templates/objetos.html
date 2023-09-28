@@ -71,7 +71,7 @@ header {
                 <div class='p-4'><div class='mb-8'> <h2>Detector de Objetos</h2>
                     <h1>Predicciones</h1>
     {% for item in data %}
-      {% if item["probability"] > 0.6 %}
+      {% if item["probability"] > 0.7 %}
         <p>En la imagen se ha encontrado el objeto: <b>{{ item["tagName"] }}</b>  con una probabilidad del  <b>({{ item["probability"] }}%)</b></p>
         <p>En las coordenadas{{ item["boundingBox"] }}</p>
       {% endif %}

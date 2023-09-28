@@ -18,9 +18,6 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
-
-
     # Renderiza la plantilla y pasa 'os' al contexto
     return render_template('index.html', os=os)
 
@@ -54,7 +51,7 @@ def audio(tag_name):
 
 
 #se define la funcion traductor y se le pasa el tagname a traducir
-def traductor(text):
+def traductor(text,idiomas):
         # se agregan los endponit y la key del servicio con la region 
         key = "f809460a0b1f447ea9543506a5feb737"
         endpoint = "https://api.cognitive.microsofttranslator.com/"
@@ -66,7 +63,7 @@ def traductor(text):
         params = {
             'api-version': '3.0',
             'from': 'es', # idioma de origen
-            'to': ['pt-pt', 'ja','en'] #idiomas de destino
+            'to': idiomas #idiomas de destino
         }
         #se definen los headers que seran enviados
         headers = {
@@ -95,7 +92,7 @@ def traductor(text):
         
         
 #se define la funcion de clasificacion mediante URL de imagenes
-def ClasificacionURLimagen(img):
+def ClasificacionURLimagen(img,idiomas):
         # URL a la que se desea realizar la solicitud POST
             predictionUrl="https://anlisistextov2.cognitiveservices.azure.com/customvision/v3.0/Prediction/2ed9fc82-7fd7-4caa-aa2a-706ff7201143/classify/iterations/Clasificador/url"
             body = {'url': img}
@@ -117,9 +114,9 @@ def ClasificacionURLimagen(img):
                 probability = prediction.get('probability', 0.0)  # Obtiene la probabilidad
                 tag_name = prediction.get('tagName', 'Desconocido')#se obtiene el tagname
                 if((probability*100)>70):#se evalua la probabilidad de que la imagen corresponda con la categoria
-                    resultados=traductor(tag_name)#se realiza el llamado a la funcion traductor para que el tagname sea traducido
+                    resultados=traductor(tag_name,idiomas)#se realiza el llamado a la funcion traductor para que el tagname sea traducido
                     #se realiza la redaccion del texto enviar al servicio de azure
-                    texto="La imagen seleccionada corresponde a"+tag_name+"su traduccion al portugues,japones e ingles es "+resultados[1]+"   "+resultados[2]+"   "+resultados[3]
+                    texto="La imagen seleccionada corresponde a"+tag_name+"su traduccion a los idiomas es "+resultados[1]+"            "+resultados[2]+"          "+resultados[3]
                     audio(texto)
                     #se retornan los resultados 
                     return resultados
@@ -193,8 +190,21 @@ def procesar_formulario():
     if request.method == 'POST':
         # Obtener los datos del formulario
         url = request.form.get('url')
-        #se realiza el llamado a la funcion del servicio de clasificacion
-        resultados=ClasificacionURLimagen(url)
+        #obtener idiomas a elegir 
+        idiomas = request.form.get('idiomas')
+        if idiomas==1:
+            traduccion=['ja', 'en','ru']
+            #se realiza el llamado a la funcion del servicio de clasificacion
+            resultados=ClasificacionURLimagen(url,traduccion)
+        elif idiomas==2:
+            traduccion=['de', 'lzh','nb']
+            #se realiza el llamado a la funcion del servicio de clasificacion
+            resultados=ClasificacionURLimagen(url,traduccion)
+        else:
+            traduccion=['sl', 'sv','uk']
+            #se realiza el llamado a la funcion del servicio de clasificacion
+            resultados=ClasificacionURLimagen(url,traduccion)
+        
         #se redirecciona al usuario 
         return render_template('result.html', data=resultados)
     
@@ -204,13 +214,10 @@ def objetos():
     if request.method == 'POST':
         #se obtienen las urls del formulario para ser procesadas 
         url1 = request.form.get('url1')
-        url2 = request.form.get('url2')
-        url3 = request.form.get('url3')
         #se llaman las funciones y se establece el guardado de los resultados 
         resultados1= Detectorobjetos(url1)
-        resultados2=Detectorobjetos(url2)
         #se redirecciona a los resultados
-        return render_template('objetos.html',data=resultados1),render_template('objetos.html',data=resultados2)
+        return render_template('objetos.html',data=resultados1)
     
     
     
