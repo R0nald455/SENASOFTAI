@@ -119,7 +119,7 @@ def ClasificacionURLimagen(img):
                 if((probability*100)>70):#se evalua la probabilidad de que la imagen corresponda con la categoria
                     resultados=traductor(tag_name)#se realiza el llamado a la funcion traductor para que el tagname sea traducido
                     #se realiza la redaccion del texto enviar al servicio de azure
-                    texto="La imagen seleccionada corresponde a"+tag_name+"su traduccion al portugues,japones e ingles es "+resultados[1]+resultados[2]+resultados[3]
+                    texto="La imagen seleccionada corresponde a"+tag_name+"su traduccion al portugues,japones e ingles es "+resultados[1]+"   "+resultados[2]+"   "+resultados[3]
                     audio(texto)
                     #se retornan los resultados 
                     return resultados

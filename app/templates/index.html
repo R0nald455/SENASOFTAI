@@ -26,7 +26,7 @@
 <style>
 body{
  
-  background-color: #fcfcfc;
+  background-color: #ffffff;
   text-align:justify;
 }
 header {
@@ -56,6 +56,8 @@ header {
 
 #card{
     padding: 80px;
+    margin-bottom: 20px;
+    background-color: rgb(216, 216, 216);
 }
 
 #card input,button{
@@ -67,11 +69,21 @@ header {
     background-color: #3a76cb;
     color: white;
     font-size: 15px;
+    font-weight: bolder;
+}
+#card button:hover,input[type="submit"]:hover{
+    background-color: #a9c2e6;
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
 }
 
 #card h5{
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
     font-size: 34px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
  
     </style>
@@ -80,7 +92,7 @@ header {
     <div class="col-lg-12">
       <div class="card text-center mb-3"  id="card">
         <div class="card-body">
-          <h5 class="card-title"><i>Clasificador de Imagenes</i></h5>
+          <h5 class="card-title">Clasificador de Imagenes</h5>
           <form action="/formulario" method="post" autocomplete="off">
               <input type="text" name="url" id="url" placeholder="Ingrese URL">
               <button type="submit" name="add" class="btn btn-outline-secondary btn-sm">Clasificar</button>
@@ -94,7 +106,7 @@ header {
       <div class="col-lg-12">
         <div class="card text-center mb-3"  id="card">
           <div class="card-body">
-            <h5 class="card-title"><i>Detector De Objetos</i></h5>
+            <h5 class="card-title">Detector De Objetos</h5>
               <form action="/objetos" method="POST" enctype="multipart/form-data" autocomplete="off">
                   <input type="text" name="url" id="url1" placeholder="Ingrese url">
                   <input type="text" name="url" id="url2" placeholder="Ingrese url">
@@ -111,7 +123,7 @@ header {
       <div class="col-lg-12">
         <div class="card text-center mb-3" id="card">
           <div class="card-body">
-            <h5 class="card-title"><i>Reconocimiento Facial</i></h5>
+            <h5 class="card-title">Reconocimiento Facial</h5>
             <form action="/rostros" method="post" autocomplete="off">
               <input type="text" name="url" id="url" placeholder="Ingrese URL">
               <button type="submit" name="add"
