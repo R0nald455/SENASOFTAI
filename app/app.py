@@ -29,23 +29,17 @@ def index():
 def audio(tag_name):
     #se estrablece la key 
     key = "4baf4501910d46fcab901eb20cacae43"
-    
     #Se configura el sdk enviando la key y la region donde esta el servicio
     speech_config = speechsdk.SpeechConfig(subscription=key, region="eastus")
     audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
-
     # se escoge el bot de quien va a leer la instrucciones
-    speech_config.speech_synthesis_voice_name='ko-KR-GookMinNeural'
-
+    speech_config.speech_synthesis_voice_name='en-US-RyanMultilingualNeural'
     #se etavlece la configuracion del sintentizador para el funcionamiento del sistema
     speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
     # Se establece lo que va a decir el servicio con un espacio para dejar tiempo entre traduccion y traduccion
     text = "                                           "+tag_name+" "
-
     #se realiza el llamado al sintetizador se le pasa el texto y se obtiene el audio 
     speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
-
     #Se evalua si el  proceso termino satisfactoriamente o si sucedio algun error o fue cancelado
     if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
         print("Speech synthesized for text [{}]".format(text))
@@ -65,18 +59,15 @@ def traductor(text):
         key = "f809460a0b1f447ea9543506a5feb737"
         endpoint = "https://api.cognitive.microsofttranslator.com/"
         location = "eastus"
-        
         #se declara el path y se realiza la construccion de la url del servicio
         path = '/translate'
         constructed_url = endpoint + path
-
         #se definen los parametros que seran usados en la transaccion
         params = {
             'api-version': '3.0',
             'from': 'es', # idioma de origen
             'to': ['pt-pt', 'ja','en'] #idiomas de destino
         }
-
         #se definen los headers que seran enviados
         headers = {
             'Ocp-Apim-Subscription-Key': key,#la llave de nuestro servicio
@@ -84,12 +75,10 @@ def traductor(text):
             'Content-type': 'application/json',#el tipo de contenido que se le va a enviar
             'X-ClientTraceId': str(uuid.uuid4())
         }
-
         # se construye el body con el texto a traducir
         body = [{
             'text': text
         }]
-
         #se realiza el llamado a la API enviando la url, los parametros, headers y el body como json
         request = requests.post(constructed_url, params=params, headers=headers, json=body)
         #se obtiene el archivo json de resultados 
@@ -97,7 +86,6 @@ def traductor(text):
         texts = [translation["text"] for translation in response[0]["translations"]]
         # Inicializar el índice del bucle
         i = 0
-
         # Recorrer la lista 'texts' y agregar al array de resultados para ser enviados al front
         resultados=[text]
         while i < len(texts):
@@ -113,14 +101,12 @@ def ClasificacionURLimagen(img):
             body = {'url': img}
             #se comvierte el body a un archivo json para ser enviado    
             body_string = json.dumps(body)
-
             # Datos que que se desean enviar en el cuerpo de la solicitud 
             data = {
                 'Prediction-Key': 'd876a5f5153b415daad195249dc49e4b',
                 'Content-Type': 'application/json',
                 'Body': body_string
             }
-
             # Realiza la solicitud POST
             response = requests.post(predictionUrl, json=body, headers=data)
             # se obtiene la respuesta en un archivo json
@@ -132,10 +118,9 @@ def ClasificacionURLimagen(img):
                 tag_name = prediction.get('tagName', 'Desconocido')#se obtiene el tagname
                 if((probability*100)>70):#se evalua la probabilidad de que la imagen corresponda con la categoria
                     resultados=traductor(tag_name)#se realiza el llamado a la funcion traductor para que el tagname sea traducido
-                    #se realiza el llamado a la funcion audio para generar el audio en los idiomas 
-                    audio(resultados[1])
-                    audio(resultados[2])
-                    audio(resultados[3])
+                    #se realiza la redaccion del texto enviar al servicio de azure
+                    texto="La imagen seleccionada corresponde a"+tag_name+"su traduccion al portugues,japones e ingles es "+resultados[1]+resultados[2]+resultados[3]
+                    audio(texto)
                     #se retornan los resultados 
                     return resultados
 
@@ -161,7 +146,6 @@ def Detectorobjetos(url):
     predictions = result["predictions"]
     #se retornan los resultados
     return predictions 
-
 #se define la funcion de reconocimiento facial
 def face(url):
     #se establecen la key y el endpoint del servicio
@@ -194,14 +178,14 @@ def subirImagen(file):
             # Guarda el archivo cargado en la carpeta de uploads
             filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filename)
-
             # Procesa la imagen para redimensionarla y finalmente guardarla
             image = Image.open(filename)
             image.thumbnail((200, 200))
             image.save(filename)
             #se retorna el nombre con el que fue guardada la imagen
             return filename
-        
+
+
 #se realiza la definicion de la ruta del formulario 
 @app.route('/formulario', methods=['POST'])
 #se definie la funcion de procesamiento del formulario
@@ -237,7 +221,7 @@ def rostros():
         url1 = request.form.get('url')
         #se realiza el llamado a la funcion de reconocimiento facial 
         resultados1= face(url1)
-        #se 
+        #se realiza la redireccion del usuario
         return render_template('rostros.html',data=resultados1)
     
 #Se realiza la definicion de main y se establecen las reglas de ejecucion
