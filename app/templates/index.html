@@ -52,12 +52,13 @@ header {
 
  
     </style>
+    <br>
 <div class="row">
     <div class="col-lg-12">
       <div class="card text-center mb-3">
         <div class="card-body">
           <h5 class="card-title"><i>Clasificador de Imagenes</i></h5>
-          <form action="/formulario" method="post">
+          <form action="/formulario" method="post" autocomplete="off">
               <input type="text" name="url" id="url" placeholder="Ingrese URL">
               <button type="submit" name="add" class="btn btn-outline-secondary btn-sm">Clasificar</button>
           </form>
@@ -71,7 +72,7 @@ header {
         <div class="card text-center mb-3">
           <div class="card-body">
             <h5 class="card-title"><i>Detector De Objetos</i></h5>
-              <form action="/objetos" method="POST" enctype="multipart/form-data">
+              <form action="/objetos" method="POST" enctype="multipart/form-data" autocomplete="off">
                   <input type="text" name="url" id="url1" placeholder="Ingrese url">
                   <input type="text" name="url" id="url2" placeholder="Ingrese url">
                   <input type="submit" class="btn btn-outline-secondary btn-sm" value="Encontrar Objetos">
@@ -88,7 +89,7 @@ header {
         <div class="card text-center mb-3">
           <div class="card-body">
             <h5 class="card-title"><i>Reconocimiento Facial</i></h5>
-            <form action="/rostros" method="post">
+            <form action="/rostros" method="post" autocomplete="off">
               <input type="text" name="url" id="url" placeholder="Ingrese URL">
               <button type="submit" name="add"
                   class="btn btn-outline-secondary btn-sm">Procesar</button>
