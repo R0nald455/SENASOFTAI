@@ -52,53 +52,50 @@ header {
 
  
     </style>
-
-<div class="container mt-12">
-    <div class="row justify-content-center">
-        <div class="col-md-9">
-            
-                <div class='card'>
-                <div class='p-4'><div class='mb-8'> <h2>Clasificador de Imagenes</h2>
-                  <form action="/formulario"  method="post">
-                      <input type="text" name="url" id="url"  placeholder="ingrese URL">
-                    <button type="submit" name="add">Clasificar</button>
-                </form>
-                      </div>               
-                </div>
-                <div class='card'>
-                    <div class='p-4'><div class='mb-8'> <h2>Detector de objetos</h2>
-                        <p>Max 3 imagenes. Min 1</p>
-                    <form action="/objetos" method="POST" enctype="multipart/form-data">
-                        <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif">
-                        <input type="file" name="file1" accept=".jpg, .jpeg, .png, .gif">
-                        <input type="file" name="file2" accept=".jpg, .jpeg, .png, .gif">
-                        <input type="submit" value="Subir y Procesar">
-                    </form>
-                          </div>               
-                    </div>
-                    <div class='card'>
-                        <div class='p-4'><div class='mb-8'> <h2>Reconocimiento Facial</h2>
-                          <form action="/rostros"  method="post">
-                            
-        <!--                     <select name="tipo" id="tipo">
-                              <option value="url"    selected>URL</option>
-                              <option value="file">Subir Archivo</option>
-                            </select>
-         -->
-                              <input type="text" name="url" id="url"  placeholder="ingrese URL">
-                            <button type="submit" name="add">Clasificar</button>
-                        </form>
-                        <form method="POST" enctype="multipart/form-data">
-                            <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif">
-                            <input type="submit" value="Subir y Procesar">
-                        </form>
-                              </div>               
-                        </div>
-                    </div><br>
-                          </div><br>
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card text-center mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><i>Clasificador de Imagenes</i></h5>
+          <form action="/formulario" method="post">
+              <input type="text" name="url" id="url" placeholder="Ingrese URL">
+              <button type="submit" name="add" class="btn btn-outline-secondary btn-sm">Clasificar</button>
+          </form>
         </div>
+      </div>
     </div>
-</div>
-
-
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-12">
+        <div class="card text-center mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><i>Detector De Objetos</i></h5>
+              <form action="/objetos" method="POST" enctype="multipart/form-data">
+                  <input type="text" name="url" id="url1" placeholder="Ingrese url">
+                  <input type="text" name="url" id="url2" placeholder="Ingrese url">
+                  <input type="submit" class="btn btn-outline-secondary btn-sm" value="Encontrar Objetos">
+              </form>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-12">
+        <div class="card text-center mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><i>Reconocimiento Facial</i></h5>
+            <form action="/rostros" method="post">
+              <input type="text" name="url" id="url" placeholder="Ingrese URL">
+              <button type="submit" name="add"
+                  class="btn btn-outline-secondary btn-sm">Procesar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
